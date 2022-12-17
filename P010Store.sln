@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P010Store.Entities", "P010S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P010Store.Data", "P010Store.Data\P010Store.Data.csproj", "{8ECD5170-1024-44CA-A74B-229BBEF49787}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P010Store.Service", "P010Store.Service\P010Store.Service.csproj", "{F88B0C18-D428-4771-9662-4A71C332DAFA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{8ECD5170-1024-44CA-A74B-229BBEF49787}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8ECD5170-1024-44CA-A74B-229BBEF49787}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8ECD5170-1024-44CA-A74B-229BBEF49787}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F88B0C18-D428-4771-9662-4A71C332DAFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F88B0C18-D428-4771-9662-4A71C332DAFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F88B0C18-D428-4771-9662-4A71C332DAFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F88B0C18-D428-4771-9662-4A71C332DAFA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
