@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using P010Store.Entities;
 using P010Store.Service.Abstract;
+using P010Store.WebUI.Utils;
 
 namespace P010Store.WebUI.Areas.Admin.Controllers
 {
@@ -39,12 +40,13 @@ namespace P010Store.WebUI.Areas.Admin.Controllers
         // POST: BrandsController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Brand brand, IFormFile? Logo)
+        public async Task<IActionResult> CreateAsync(Brand brand, IFormFile? Logo)
         {
             if (ModelState.IsValid) // Model class ımız olan brand nesnesinin validasyon için koyduğumuz kurallarınıa (örneğin marka adı required-boş geçilemez gibi) uyulmuşsa
             {
                 try
                 {
+                    brand.Logo = await FileHelper.FileLoaderAsync(Logo);
                     _service.Add(brand);
                     _service.SaveChanges();
                     return RedirectToAction(nameof(Index));
