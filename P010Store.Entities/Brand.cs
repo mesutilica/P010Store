@@ -13,7 +13,7 @@ namespace P010Store.Entities
         public string? Logo { get; set; } = ""; // property e varsayılan değer atama
         [Display(Name = "Durum")]
         public bool IsActive { get; set; }
-        [Display(Name = "Eklenme Tarihi")]
+        [Display(Name = "Eklenme Tarihi"), ScaffoldColumn(false)] // ScaffoldColumn(false) demek view lar oluşturulurken bu alan ekranda oluşturulmasın demektir.
         public DateTime? CreateDate { get; set; } = DateTime.Now;
         public virtual ICollection<Product>? Products { get; set; } // Marka ile Ürünler arasında 1 e çok ilişki kurduk
     }
