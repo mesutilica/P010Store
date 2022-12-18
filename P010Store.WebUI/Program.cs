@@ -1,4 +1,6 @@
 using P010Store.Data;
+using P010Store.Service.Abstract;
+using P010Store.Service.Concrete;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,6 +8,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<DatabaseContext>(); // Entityframework iþlemlerini yapabilmek için bu satýrý ekliyoruz
+builder.Services.AddTransient(typeof(IService<>), typeof(Service<>)); // Veritabaný iþlemleri yapacaðýmýz servisleri ekledik. Burada .net core a eðer sana IService interface i kullanma isteði gelirse Service sýnýfýndan bir nesne oluþtur demiþ olduk.
+// .net core da 3 farklý yöntemle servisleri ekleyebiliyoruz:
+
+// builder.Services.AddSingleton(); : AddSingleton kullanarak oluþturduðumuz nesneden 1 tane örnek oluþur ve her seferinde bu örnek kullanýlýr
+
+// builder.Services.AddTransient() yönteminde ise önceden oluþmuþ nesne varsa o kullanýlýr yoksa yenisi oluþturulur
+
+// builder.Services.AddScoped() yönteminde ise yapýlan her istek için yeni bir nesne oluþturulur
+
 
 var app = builder.Build();
 
