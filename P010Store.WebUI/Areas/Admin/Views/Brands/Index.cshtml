@@ -1,4 +1,4 @@
-﻿@model IEnumerable<P010Store.Entities.Brand>
+﻿@model IEnumerable<Brand>
 
 @{
     ViewData["Title"] = "Markalar";
@@ -9,7 +9,7 @@
 <p>
     <a class="btn btn-primary" asp-action="Create">Yeni Ekle</a>
 </p>
-<table class="table">
+<table class="table table-striped table-hover">
     <thead>
         <tr>
             <th>
@@ -41,7 +41,7 @@
                     @Html.DisplayFor(modelItem => item.Description)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Logo)
+                    <img src="/Img/@item.Logo" alt="@item.Logo" height="40" />
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.IsActive)
