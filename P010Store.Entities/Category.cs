@@ -11,7 +11,7 @@ namespace P010Store.Entities
         public string? Description { get; set; }
         [StringLength(150), Display(Name = "Kategori Resmi")]
         public string? Image { get; set; }
-        [Display(Name = "Eklenme Tarihi")]
+        [Display(Name = "Eklenme Tarihi"), ScaffoldColumn(false)]
         public DateTime? CreateDate { get; set; } = DateTime.Now; // eğer bu alan boş geçilirse eklenme zamanını sistemden otomatik al
         [Display(Name = "Durum")]
         public bool IsActive { get; set; }

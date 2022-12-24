@@ -13,7 +13,7 @@ namespace P010Store.Entities
         public string? Image { get; set; }
         [Display(Name = "Eklenme Tarihi"), ScaffoldColumn(false)] // ScaffoldColumn(false) CreateDate property sinin view oluşturulurken ekranda div inin oluşmamasını sağlar
         public DateTime? CreateDate { get; set; } = DateTime.Now; // eğer bu alan boş geçilirse eklenme zamanını sistemden otomatik al
-        [Display(Name = "Güncellenme Tarihi")]
+        [Display(Name = "Güncellenme Tarihi"), ScaffoldColumn(false)]
         public DateTime? UpdateDate { get; set; } = DateTime.Now;
         [Display(Name = "Durum")]
         public bool IsActive { get; set; }
