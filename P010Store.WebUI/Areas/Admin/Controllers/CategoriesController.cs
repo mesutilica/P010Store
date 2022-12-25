@@ -56,6 +56,28 @@ namespace P010Store.WebUI.Areas.Admin.Controllers
 
             return View(category);
         }
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Create2(Category category, IFormFile? Image)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    if (Image is not null) category.Image = await FileHelper.FileLoaderAsync(Image);
+                    await _service.AddAsync(category);
+                    await _service.SaveChangesAsync();
+                    return RedirectToAction("Create", "Products");
+                }
+                catch
+                {
+                    ModelState.AddModelError("", "Hata Oluştu!");
+                }
+            }
+
+            return View(category);
+        }
 
         // GET: CategoriesController/Edit/5
         public async Task<ActionResult> EditAsync(int id)

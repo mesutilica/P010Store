@@ -58,6 +58,29 @@ namespace P010Store.WebUI.Areas.Admin.Controllers
             
             return View(brand);
         }
+        
+        // POST: BrandsController/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create2(Brand brand, IFormFile? Logo)
+        {
+            if (ModelState.IsValid) // Model class ımız olan brand nesnesinin validasyon için koyduğumuz kurallarınıa (örneğin marka adı required-boş geçilemez gibi) uyulmuşsa
+            {
+                try
+                {
+                    brand.Logo = await FileHelper.FileLoaderAsync(Logo);
+                    _service.Add(brand);
+                    _service.SaveChanges();
+                    return RedirectToAction("Create", "Products");
+                }
+                catch
+                {
+                    ModelState.AddModelError("", "Hata Oluştu!");
+                }
+            }
+            
+            return View(brand);
+        }
 
         // GET: BrandsController/Edit/5
         public async Task<ActionResult> EditAsync(int id)

@@ -66,39 +66,54 @@ namespace P010Store.WebUI.Areas.Admin.Controllers
         }
 
         // GET: ProductsController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> EditAsync(int id)
         {
-            return View();
+            var model = await _service.FindAsync(id);
+            ViewBag.CategoryId = new SelectList(await _serviceCategory.GetAllAsync(), "Id", "Name");
+            ViewBag.BrandId = new SelectList(await _serviceBrand.GetAllAsync(), "Id", "Name");
+            return View(model);
         }
 
         // POST: ProductsController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> EditAsync(int id, Product product, IFormFile? Image)
         {
-            try
+            if (ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    if (Image is not null) product.Image = await FileHelper.FileLoaderAsync(Image, filePath: "/wwwroot/Img/Products/");
+                    _service.Update(product);
+                    await _service.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                catch
+                {
+                    ModelState.AddModelError("", "Hata Oluştu!");
+                }
             }
-            catch
-            {
-                return View();
-            }
+            ViewBag.CategoryId = new SelectList(await _serviceCategory.GetAllAsync(), "Id", "Name");
+            ViewBag.BrandId = new SelectList(await _serviceBrand.GetAllAsync(), "Id", "Name");
+            return View(product);
         }
 
         // GET: ProductsController/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> DeleteAsync(int id)
         {
-            return View();
+            var model = await _service.FindAsync(id);
+            return View(model);
         }
 
         // POST: ProductsController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id, Product product)
         {
             try
             {
+                _service.Delete(product);
+                _service.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             catch
