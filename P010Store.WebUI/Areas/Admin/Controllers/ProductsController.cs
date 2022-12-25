@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using P010Store.Entities;
 using P010Store.Service.Abstract;
+using P010Store.WebUI.Utils;
 
 namespace P010Store.WebUI.Areas.Admin.Controllers
 {
@@ -9,15 +11,20 @@ namespace P010Store.WebUI.Areas.Admin.Controllers
     public class ProductsController : Controller
     {
         private readonly IService<Product> _service;
+        private readonly IService<Category> _serviceCategory;
+        private readonly IService<Brand> _serviceBrand;
 
-        public ProductsController(IService<Product> service)
+        public ProductsController(IService<Product> service, IService<Category> serviceCategory, IService<Brand> serviceBrand)
         {
             _service = service;
+            _serviceCategory = serviceCategory;
+            _serviceBrand = serviceBrand;
         }
         // GET: ProductsController
         public ActionResult Index()
         {
-            return View();
+            var model = _service.GetAll();
+            return View(model);
         }
 
         // GET: ProductsController/Details/5
@@ -27,24 +34,35 @@ namespace P010Store.WebUI.Areas.Admin.Controllers
         }
 
         // GET: ProductsController/Create
-        public ActionResult Create()
+        public async Task<ActionResult> CreateAsync()
         {
+            ViewBag.CategoryId = new SelectList(await _serviceCategory.GetAllAsync(), "Id", "Name");
+            ViewBag.BrandId = new SelectList(await _serviceBrand.GetAllAsync(), "Id", "Name");
             return View();
         }
 
         // POST: ProductsController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> CreateAsync(Product product, IFormFile? Image)
         {
-            try
+            if (ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    if (Image is not null) product.Image = await FileHelper.FileLoaderAsync(Image, filePath: "/wwwroot/Img/Products/");
+                    await _service.AddAsync(product);
+                    await _service.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                catch
+                {
+                    ModelState.AddModelError("", "Hata Oluştu!");
+                }
             }
-            catch
-            {
-                return View();
-            }
+            ViewBag.CategoryId = new SelectList(await _serviceCategory.GetAllAsync(), "Id", "Name"); // burada ürün ekleme esnasında ekleme başarısız olursa ekrandaki select elementlerine verileri tekrar gönderiyoruz aksi taktirde null reference hatası alırız
+            ViewBag.BrandId = new SelectList(await _serviceBrand.GetAllAsync(), "Id", "Name");
+            return View(product);
         }
 
         // GET: ProductsController/Edit/5
