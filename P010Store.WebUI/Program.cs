@@ -3,6 +3,7 @@ using P010Store.Data.Abstract;
 using P010Store.Data.Concrete;
 using P010Store.Service.Abstract;
 using P010Store.Service.Concrete;
+using Microsoft.AspNetCore.Authentication.Cookies; // oturum iþlemi için gerekli kütüphane
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +23,15 @@ builder.Services.AddTransient(typeof(IService<>), typeof(Service<>)); // Veritab
 
 builder.Services.AddTransient<IProductService, ProductService>(); // producta özel yazdýðýmýz servis
 
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(x =>
+{
+    x.LoginPath = "/Admin/Login"; // giriþ yapma sayfasý
+    x.AccessDeniedPath = "/AccessDenied"; // giriþ yapan kullanýcýnýn admin yetkisi yoksa AccessDenied sayfasýna yönlendir
+    x.LogoutPath = "/Admin/Login/SignOut"; // çýkýþ sayfasý
+    x.Cookie.Name = "Administrator"; // oluþacak kukinin adý
+    x.Cookie.MaxAge = TimeSpan.FromDays(1); // oluþacak kukinin yaþam süresi
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -37,6 +47,9 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+// Authentication : oturum açma-giriþ yapma
+app.UseAuthentication(); // admin login için. UseAuthentication ýn UseAuthorization dan önce gelmesi zorunlu!
+// Authorization : yetkilendirme (oturum açan kullanýcýnýn admine giriþ yetkisi var mý)
 app.UseAuthorization();
 
 app.MapControllerRoute(
