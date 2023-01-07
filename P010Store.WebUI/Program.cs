@@ -20,6 +20,7 @@ builder.Services.AddTransient(typeof(IService<>), typeof(Service<>)); // Veritab
 
 // builder.Services.AddScoped() yönteminde ise yapýlan her istek için yeni bir nesne oluþturulur
 
+builder.Services.AddTransient<IProductService, ProductService>(); // producta özel yazdýðýmýz servis
 
 var app = builder.Build();
 
