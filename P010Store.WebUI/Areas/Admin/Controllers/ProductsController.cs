@@ -10,7 +10,7 @@ namespace P010Store.WebUI.Areas.Admin.Controllers
     [Area("Admin")]
     public class ProductsController : Controller
     {
-        private readonly IService<Product> _service;
+        private readonly IService<Product> _service; // private readonly
         private readonly IService<Category> _serviceCategory;
         private readonly IService<Brand> _serviceBrand;
         private readonly IProductService _productService; // InvalidOperationException: Unable to resolve service for type 'P010Store.Service.Abstract.IProductService' while attempting to activate 'P010Store.WebUI.Areas.Admin.Controllers.ProductsController'. bu servisi kullandığımızda bu hatayı alırız, bu sorunu çözmek için servisi program.cs de tanımlamamız gerekir.
@@ -23,7 +23,7 @@ namespace P010Store.WebUI.Areas.Admin.Controllers
             _productService = productService;
         }
         // GET: ProductsController
-        public async Task<ActionResult> IndexAsync()
+        public async Task<ActionResult> Index()
         {
             var model = await _productService.GetAllProductsByCategoriesBrandsAsync(); // eskisi _service.GetAll();
             return View(model);
@@ -36,7 +36,7 @@ namespace P010Store.WebUI.Areas.Admin.Controllers
         }
 
         // GET: ProductsController/Create
-        public async Task<ActionResult> CreateAsync()
+        public async Task<ActionResult> Create()
         {
             ViewBag.CategoryId = new SelectList(await _serviceCategory.GetAllAsync(), "Id", "Name");
             ViewBag.BrandId = new SelectList(await _serviceBrand.GetAllAsync(), "Id", "Name");
@@ -55,7 +55,7 @@ namespace P010Store.WebUI.Areas.Admin.Controllers
                     if (Image is not null) product.Image = await FileHelper.FileLoaderAsync(Image, filePath: "/wwwroot/Img/Products/");
                     await _service.AddAsync(product);
                     await _service.SaveChangesAsync();
-                    return RedirectToAction(nameof(IndexAsync));
+                    return RedirectToAction(nameof(Index));
                 }
                 catch
                 {
@@ -88,7 +88,7 @@ namespace P010Store.WebUI.Areas.Admin.Controllers
                     if (Image is not null) product.Image = await FileHelper.FileLoaderAsync(Image, filePath: "/wwwroot/Img/Products/");
                     _service.Update(product);
                     await _service.SaveChangesAsync();
-                    return RedirectToAction(nameof(IndexAsync));
+                    return RedirectToAction(nameof(Index));
                 }
                 catch
                 {
@@ -116,7 +116,7 @@ namespace P010Store.WebUI.Areas.Admin.Controllers
             {
                 _service.Delete(product);
                 _service.SaveChanges();
-                return RedirectToAction(nameof(IndexAsync));
+                return RedirectToAction(nameof(Index));
             }
             catch
             {
