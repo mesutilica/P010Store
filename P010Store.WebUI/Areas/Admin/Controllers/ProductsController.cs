@@ -7,7 +7,7 @@ using P010Store.WebUI.Utils;
 
 namespace P010Store.WebUI.Areas.Admin.Controllers
 {
-    [Area("Admin"), Authorize]
+    [Area("Admin"), Authorize(Policy = "AdminPolicy")]
     public class ProductsController : Controller
     {
         private readonly IService<Product> _service; // private readonly

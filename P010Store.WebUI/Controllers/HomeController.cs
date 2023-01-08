@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using P010Store.Entities;
+using P010Store.Service.Abstract;
 using P010Store.WebUI.Models;
 using System.Diagnostics;
 
@@ -6,19 +8,20 @@ namespace P010Store.WebUI.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IService<Product> _service;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IService<Product> service)
         {
-            _logger = logger;
+            _service = service;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> IndexAsync()
         {
-            return View();
+            var model = await _service.GetAllAsync();
+            return View(model);
         }
-
-        public IActionResult Privacy()
+        [Route("AccessDenied")]
+        public IActionResult AccessDenied()
         {
             return View();
         }

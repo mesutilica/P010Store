@@ -23,6 +23,7 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Views\Shared\Components\Brands\" />
     <Folder Include="wwwroot\Img\Brands\" />
     <Folder Include="wwwroot\Img\Slider\" />
   </ItemGroup>
