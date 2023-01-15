@@ -17,5 +17,17 @@ namespace P010Store.WebUI.Controllers
             var model = await _service.GetAllAsync(p => p.IsActive);
             return View(model);
         }
+
+        public async Task<IActionResult> Search(string q)
+        {
+            var model = await _service.GetAllAsync(p => p.IsActive && p.Name.Contains(q));
+            return View(model);
+        }
+
+        public async Task<IActionResult> Detail(int id)
+        {
+            var model = await _service.GetProductByCategoriesBrandsAsync(id);
+            return View(model);
+        }
     }
 }

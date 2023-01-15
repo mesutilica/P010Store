@@ -1,4 +1,6 @@
-﻿<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+﻿@inject IHttpContextAccessor context
+
+<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
     <div class="sb-sidenav-menu">
         <div class="nav">
             <div class="sb-sidenav-menu-heading">Core</div>
@@ -41,7 +43,7 @@
         </div>
     </div>
     <div class="sb-sidenav-footer">
-        <div class="small">Logged in as:</div>
-        Start Bootstrap
+        <div class="small">Hoşgeldin:</div>
+        @context.HttpContext.User.Identity.Name
     </div>
 </nav>

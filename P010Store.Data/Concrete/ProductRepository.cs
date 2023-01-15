@@ -14,5 +14,10 @@ namespace P010Store.Data.Concrete
         {
             return await context.Products.Include(c => c.Category).Include(b => b.Brand).AsNoTracking().ToListAsync(); // bu metot geriye ürün listesi dönecek ve listedeki her bir ürüne o ürünün kategorisi ve markası da dahil edilecek. context üzerinden Products a erişip ef core un include metoduyla hem ürünün kategorisini hem de markasını products a dahil edip en son tolistasync diyerek listeleyip verilieri döndürüyoruz.
         }
+
+        public async Task<Product> GetProductByCategoriesBrandsAsync(int id)
+        {
+            return await context.Products.Include(c => c.Category).Include(b => b.Brand).AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
+        }
     }
 }

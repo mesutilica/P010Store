@@ -23,6 +23,7 @@ builder.Services.AddTransient(typeof(IService<>), typeof(Service<>)); // Veritab
 
 builder.Services.AddTransient<IProductService, ProductService>(); // producta özel yazdýðýmýz servis
 builder.Services.AddTransient<ICategoryService, CategoryService>();
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>(); // IHttpContextAccessor ile uygulama içerisindeki giriþ yapan kullanýcý, session verileri, cookie ler gibi içeriklere view lardan veya controllerdan ulaþabilmemizi saðlar.
 
 // Authentication : Oturum açma servisi
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(x =>

@@ -33,10 +33,16 @@
                     @await Component.InvokeAsync("Categories")
                     <li class="nav-item"><a class="nav-link active" aria-current="page" href="/iletisim">İletişim</a></li>
                 </ul>
+                <form asp-controller="Products" asp-action="Search" method="get" class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+                    <div class="input-group">
+                        <input name="q" class="form-control" type="text" placeholder="Ara..." aria-label="Ara..." aria-describedby="btnNavbarSearch" />
+                        <button class="btn btn-primary" id="btnNavbarSearch" type="submit"><i class="bi bi-search"></i></button>
+                    </div>
+                </form>
                 <form class="d-flex">
                     <button class="btn btn-outline-dark" type="submit">
                         <i class="bi-cart-fill me-1"></i>
-                        Cart
+                        Sepet
                         <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                     </button>
                 </form>

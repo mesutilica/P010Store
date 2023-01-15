@@ -9,7 +9,9 @@
                 <div class="col mb-5">
                     <div class="card h-100">
                         <!-- Product image-->
-                        <img class="card-img-top" src="/Img/Products/@item.Image" alt="@item.Name" title="@item.Name" />
+                        <a asp-controller="Products" asp-action="Detail" asp-route-id="@item.Id">
+                            <img class="card-img-top" src="/Img/Products/@item.Image" alt="@item.Name" title="@item.Name" />
+                        </a>
                         <!-- Product details-->
                         <div class="card-body p-4">
                             <div class="text-center">
