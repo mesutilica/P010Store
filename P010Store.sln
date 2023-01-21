@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P010Store.WebUI", "P010Store.WebUI\P010Store.WebUI.csproj", "{ECD0A414-4FE0-4378-849E-19082E04779D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P010Store.WebUI", "P010Store.WebUI\P010Store.WebUI.csproj", "{ECD0A414-4FE0-4378-849E-19082E04779D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P010Store.Entities", "P010Store.Entities\P010Store.Entities.csproj", "{026C13A4-0DFC-4FA5-8CF8-F8EB6D674318}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P010Store.Entities", "P010Store.Entities\P010Store.Entities.csproj", "{026C13A4-0DFC-4FA5-8CF8-F8EB6D674318}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P010Store.Data", "P010Store.Data\P010Store.Data.csproj", "{8ECD5170-1024-44CA-A74B-229BBEF49787}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P010Store.Data", "P010Store.Data\P010Store.Data.csproj", "{8ECD5170-1024-44CA-A74B-229BBEF49787}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P010Store.Service", "P010Store.Service\P010Store.Service.csproj", "{F88B0C18-D428-4771-9662-4A71C332DAFA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P010Store.Service", "P010Store.Service\P010Store.Service.csproj", "{F88B0C18-D428-4771-9662-4A71C332DAFA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P010Store.WebAPI", "P010Store.WebAPI\P010Store.WebAPI.csproj", "{AA8CF0AF-1091-4831-95FD-3BC99F4B886C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{F88B0C18-D428-4771-9662-4A71C332DAFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F88B0C18-D428-4771-9662-4A71C332DAFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F88B0C18-D428-4771-9662-4A71C332DAFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA8CF0AF-1091-4831-95FD-3BC99F4B886C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA8CF0AF-1091-4831-95FD-3BC99F4B886C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA8CF0AF-1091-4831-95FD-3BC99F4B886C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA8CF0AF-1091-4831-95FD-3BC99F4B886C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

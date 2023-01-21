@@ -1,0 +1,15 @@
+﻿Projeyi tamamladıktan sonra öncelikle hosting firmasından aldığımız mssql veritabanı bilgilerini databasecontext deki connection string deki alanlara eklememiz gerekli.
+
+P010Store.WebUI proje adına sağ klik yapıp açılan menüden Publish seçeneğine tıklıyoruz
+
+Açılan pencerede Publish işlemi için gerekli yapılandırma ayarı yapılır. 
+
+Çıktı alacağımız klasörü seçip Folder menüsünü seçip ok diyerek pencereyi kapatıyoruz.
+
+Uygulamayı yayınlamak için ekrandaki Publish butonuna basıyoruz.
+
+İşlem tamamlandığında seçili klasöre çıktı verilecektir.
+
+Aldığımız bu çıktı dosyalarını bir Ftp programı veya suncunun arayüzünü kullanarak sunucumuza yüklememiz gerekir.
+
+Ftp işlemi için ücretsiz program olan File Zilla(Client) yı indirip kullanabiliriz
