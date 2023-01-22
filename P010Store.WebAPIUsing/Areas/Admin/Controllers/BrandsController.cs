@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using P010Store.Entities;
+using P010Store.WebAPIUsing.Utils;
 
 namespace P010Store.WebAPIUsing.Areas.Admin.Controllers
 {
@@ -38,58 +38,76 @@ namespace P010Store.WebAPIUsing.Areas.Admin.Controllers
         // POST: BrandsController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<IActionResult> CreateAsync(Brand brand, IFormFile? Logo)
         {
-            try
+            if (ModelState.IsValid) // Model class ımız olan brand nesnesinin validasyon için koyduğumuz kurallarınıa (örneğin marka adı required-boş geçilemez gibi) uyulmuşsa
             {
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    brand.Logo = await FileHelper.FileLoaderAsync(Logo);
+                    var response = await _httpClient.PostAsJsonAsync(_apiAdres, brand); // _httpClient nesnesi içerisindeki PostAsJsonAsync metoduna parametre olarak Post isteği atacağımız adresi(_apiAdres) ve eklemek istediğimiz nesneyi(brand) verdiğimizde brand i json a çevirerek api ye eklenmek üzere yolluyor. Eğer bi eksik yoksa api brandi ekler ve geriye response nesnesine bir cevap ekler.
+                   if(response.IsSuccessStatusCode) return RedirectToAction(nameof(Index)); // eğer response değişkenine api den IsSuccessStatusCode yani başarılı bir durum kodu dönmüşse sayfayı index e yönlendir
+                }
+                catch
+                {
+                    ModelState.AddModelError("", "Hata Oluştu!");
+                }
             }
-            catch
-            {
-                return View();
-            }
+
+            return View(brand);
         }
 
         // GET: BrandsController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> EditAsync(int id)
         {
-            return View();
+            var model = await _httpClient.GetFromJsonAsync<Brand>(_apiAdres + "/" + id);
+            return View(model);
         }
 
         // POST: BrandsController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> EditAsync(int id, Brand brand, IFormFile? Logo)
         {
-            try
+            if (ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    if (Logo is not null) brand.Logo = await FileHelper.FileLoaderAsync(Logo);
+                    var cevap = await _httpClient.PutAsJsonAsync(_apiAdres + "/" + id, brand);
+                    if(cevap.IsSuccessStatusCode) return RedirectToAction(nameof(Index));
+                }
+                catch
+                {
+                    ModelState.AddModelError("", "Hata Oluştu!");
+                }
             }
-            catch
-            {
-                return View();
-            }
+
+            return View(brand);
         }
 
         // GET: BrandsController/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> DeleteAsync(int id)
         {
-            return View();
+            var model = await _httpClient.GetFromJsonAsync<Brand>(_apiAdres + "/" + id);
+            return View(model);
         }
 
         // POST: BrandsController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> DeleteAsync(int id, Brand collection)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                var sonuc = await _httpClient.DeleteAsync(_apiAdres + "/" + id);
+                if(sonuc.IsSuccessStatusCode) return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                ModelState.AddModelError("", "Hata Oluştu!");
             }
+            return View(collection);
         }
     }
 }
