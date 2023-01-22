@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P010Store.Data", "P010Store
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P010Store.Service", "P010Store.Service\P010Store.Service.csproj", "{F88B0C18-D428-4771-9662-4A71C332DAFA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P010Store.WebAPI", "P010Store.WebAPI\P010Store.WebAPI.csproj", "{AA8CF0AF-1091-4831-95FD-3BC99F4B886C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P010Store.WebAPI", "P010Store.WebAPI\P010Store.WebAPI.csproj", "{AA8CF0AF-1091-4831-95FD-3BC99F4B886C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P010Store.WebAPIUsing", "P010Store.WebAPIUsing\P010Store.WebAPIUsing.csproj", "{82150628-E7F5-433A-B656-DAE461D0A18E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{AA8CF0AF-1091-4831-95FD-3BC99F4B886C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA8CF0AF-1091-4831-95FD-3BC99F4B886C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA8CF0AF-1091-4831-95FD-3BC99F4B886C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82150628-E7F5-433A-B656-DAE461D0A18E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82150628-E7F5-433A-B656-DAE461D0A18E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82150628-E7F5-433A-B656-DAE461D0A18E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82150628-E7F5-433A-B656-DAE461D0A18E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

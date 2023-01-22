@@ -15,6 +15,7 @@ namespace P010Store.Data
         {
             // Burası veritabanı yapılandırma ayarlarını yapabileceğimiz metot
             optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB; database=P010Store; integrated security=true;");
+            // optionsBuilder.UseSqlServer(@"Server=mssql.siteadi.com veya 84.118.123.25; database=P010Store; username=veritabanikullaniciadi; password=veritabanisifresi"); // Canlı ayarları için
             //optionsBuilder.UseInMemoryDatabase("NetCoreMvcProjeUygulamasi");
             base.OnConfiguring(optionsBuilder);
         }
