@@ -1,50 +1,49 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using P010Store.Entities;
-using P010Store.WebAPIUsing.Utils;
 
 namespace P010Store.WebAPIUsing.Areas.Admin.Controllers
 {
-    [Area("Admin"), Authorize(Policy = "AdminPolicy")]
-    public class CategoriesController : Controller
+    [Area("Admin"), Authorize]
+    public class ContactsController : Controller
     {
         private readonly HttpClient _httpClient;
-        private readonly string _apiAdres = "https://localhost:7141/Api/Categories";
+        private readonly string _apiAdres = "https://localhost:7141/Api/Contacts";
 
-        public CategoriesController(HttpClient httpClient)
+        public ContactsController(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
-        // GET: CategoriesController
+
+        // GET: ContactsController
         public async Task<ActionResult> IndexAsync()
         {
-            var model = await _httpClient.GetFromJsonAsync<List<Category>>(_apiAdres);
+            var model = await _httpClient.GetFromJsonAsync<List<Contact>>(_apiAdres);
             return View(model);
         }
 
-        // GET: CategoriesController/Details/5
+        // GET: ContactsController/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: CategoriesController/Create
+        // GET: ContactsController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: CategoriesController/Create
+        // POST: ContactsController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateAsync(Category category, IFormFile? Image)
+        public async Task<ActionResult> CreateAsync(Contact collection)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    if (Image is not null) category.Image = await FileHelper.FileLoaderAsync(Image);
-                    var response = await _httpClient.PostAsJsonAsync(_apiAdres, category);
+                    var response = await _httpClient.PostAsJsonAsync(_apiAdres, collection);
                     if (response.IsSuccessStatusCode)
                         return RedirectToAction(nameof(Index));
                 }
@@ -54,27 +53,26 @@ namespace P010Store.WebAPIUsing.Areas.Admin.Controllers
                 }
             }
 
-            return View(category);
+            return View(collection);
         }
 
-        // GET: CategoriesController/Edit/5
+        // GET: ContactsController/Edit/5
         public async Task<ActionResult> EditAsync(int id)
         {
-            var model = await _httpClient.GetFromJsonAsync<Category>(_apiAdres + "/" + id);
+            var model = await _httpClient.GetFromJsonAsync<Contact>(_apiAdres + "/" + id);
             return View(model);
         }
 
-        // POST: CategoriesController/Edit/5
+        // POST: ContactsController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> EditAsync(int id, Category category, IFormFile? Image)
+        public async Task<ActionResult> EditAsync(int id, Contact collection)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    if (Image is not null) category.Image = await FileHelper.FileLoaderAsync(Image);
-                    var response = await _httpClient.PutAsJsonAsync(_apiAdres + "/" + id, category);
+                    var response = await _httpClient.PutAsJsonAsync(_apiAdres, collection);
                     if (response.IsSuccessStatusCode)
                         return RedirectToAction(nameof(Index));
                 }
@@ -84,20 +82,20 @@ namespace P010Store.WebAPIUsing.Areas.Admin.Controllers
                 }
             }
 
-            return View(category);
+            return View(collection);
         }
 
-        // GET: CategoriesController/Delete/5
+        // GET: ContactsController/Delete/5
         public async Task<ActionResult> DeleteAsync(int id)
         {
-            var model = await _httpClient.GetFromJsonAsync<Category>(_apiAdres + "/" + id);
+            var model = await _httpClient.GetFromJsonAsync<Contact>(_apiAdres + "/" + id);
             return View(model);
         }
 
-        // POST: CategoriesController/Delete/5
+        // POST: ContactsController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteAsync(int id, Category category)
+        public async Task<ActionResult> DeleteAsync(int id, Contact collection)
         {
             try
             {
@@ -108,7 +106,7 @@ namespace P010Store.WebAPIUsing.Areas.Admin.Controllers
             {
                 ModelState.AddModelError("", "Hata Oluştu!");
             }
-            return View(category);
+            return View(collection);
         }
     }
 }

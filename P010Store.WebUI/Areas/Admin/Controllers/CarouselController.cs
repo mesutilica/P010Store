@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using P010Store.Entities;
 using P010Store.Service.Abstract;
 using P010Store.WebUI.Utils;
+using System.Drawing.Drawing2D;
 
 namespace P010Store.WebUI.Areas.Admin.Controllers
 {
@@ -102,6 +103,7 @@ namespace P010Store.WebUI.Areas.Admin.Controllers
         {
             try
             {
+                FileHelper.FileRemover(carousel.Image);
                 _service.Delete(carousel);
                 await _service.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

@@ -2,8 +2,6 @@
 using P010Store.Entities;
 using P010Store.Service.Abstract;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace P010Store.WebAPI.Controllers
 {
     [Route("api/[controller]")]

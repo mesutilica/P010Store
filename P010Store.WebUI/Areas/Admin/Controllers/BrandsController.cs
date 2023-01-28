@@ -127,6 +127,7 @@ namespace P010Store.WebUI.Areas.Admin.Controllers
         {
             try
             {
+                FileHelper.FileRemover(brand.Logo);
                 _service.Delete(brand);
                 _service.SaveChanges();
                 return RedirectToAction(nameof(Index));
