@@ -4,7 +4,7 @@ using P010Store.Entities;
 
 namespace P010Store.WebAPIUsing.Areas.Admin.Controllers
 {
-    [Area("Admin"), Authorize]
+    [Area("Admin"), Authorize(Policy = "AdminPolicy")]
     public class ContactsController : Controller
     {
         private readonly HttpClient _httpClient;

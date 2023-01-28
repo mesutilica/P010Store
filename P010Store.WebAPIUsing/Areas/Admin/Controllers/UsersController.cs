@@ -1,53 +1,50 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using P010Store.Entities;
-using P010Store.WebAPIUsing.Utils;
 
 namespace P010Store.WebAPIUsing.Areas.Admin.Controllers
 {
     [Area("Admin"), Authorize(Policy = "AdminPolicy")]
-    public class CarouselController : Controller
+    public class UsersController : Controller
     {
         private readonly HttpClient _httpClient;
-        private readonly string _apiAdres = "https://localhost:7141/Api/Carousel";
+        private readonly string _apiAdres = "https://localhost:7141/Api/Users";
 
-        public CarouselController(HttpClient httpClient)
+        public UsersController(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
-
-        // GET: CarouselController
+        // GET: UsersController
         public async Task<ActionResult> IndexAsync()
         {
-            var model = await _httpClient.GetFromJsonAsync<List<Carousel>>(_apiAdres);
+            var model = await _httpClient.GetFromJsonAsync<List<User>>(_apiAdres);
             return View(model);
         }
 
-        // GET: CarouselController/Details/5
+        // GET: UsersController/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: CarouselController/Create
+        // GET: UsersController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: CarouselController/Create
+        // POST: UsersController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateAsync(Carousel carousel, IFormFile? Image)
+        public async Task<ActionResult> CreateAsync(User user)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    if (Image is not null) 
-                        carousel.Image = await FileHelper.FileLoaderAsync(Image);
-                    var response = await _httpClient.PostAsJsonAsync(_apiAdres, carousel);
-                    if (response.IsSuccessStatusCode) 
+                    var response = await _httpClient.PostAsJsonAsync(_apiAdres, user);
+                    if (response.IsSuccessStatusCode)
                         return RedirectToAction(nameof(Index));
                 }
                 catch
@@ -56,28 +53,28 @@ namespace P010Store.WebAPIUsing.Areas.Admin.Controllers
                 }
             }
 
-            return View(carousel);
+            return View(user);
         }
 
-        // GET: CarouselController/Edit/5
+        // GET: UsersController/Edit/5
         public async Task<ActionResult> EditAsync(int id)
         {
-            var model = await _httpClient.GetFromJsonAsync<Carousel>(_apiAdres + "/" + id);
+            var model = await _httpClient.GetFromJsonAsync<User>(_apiAdres + "/" + id);
             return View(model);
         }
 
-        // POST: CarouselController/Edit/5
+        // POST: UsersController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> EditAsync(int id, Carousel carousel, IFormFile? Image)
+        public async Task<ActionResult> EditAsync(int id, User user)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    if (Image is not null) carousel.Image = await FileHelper.FileLoaderAsync(Image);
-                    await _httpClient.PutAsJsonAsync(_apiAdres + "/" + id, carousel);
-                    return RedirectToAction(nameof(Index));
+                    var response = await _httpClient.PutAsJsonAsync(_apiAdres, user);
+                    if (response.IsSuccessStatusCode)
+                        return RedirectToAction(nameof(Index));
                 }
                 catch
                 {
@@ -85,24 +82,23 @@ namespace P010Store.WebAPIUsing.Areas.Admin.Controllers
                 }
             }
 
-            return View(carousel);
+            return View(user);
         }
 
-        // GET: CarouselController/Delete/5
+        // GET: UsersController/Delete/5
         public async Task<ActionResult> DeleteAsync(int id)
         {
-            var model = await _httpClient.GetFromJsonAsync<Carousel>(_apiAdres + "/" + id);
+            var model = await _httpClient.GetFromJsonAsync<User>(_apiAdres + "/" + id);
             return View(model);
         }
 
-        // POST: CarouselController/Delete/5
+        // POST: UsersController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteAsync(int id, Carousel collection)
+        public async Task<ActionResult> DeleteAsync(int id, User collection)
         {
             try
             {
-                FileHelper.FileRemover(collection.Image);
                 await _httpClient.DeleteAsync(_apiAdres + "/" + id);
                 return RedirectToAction(nameof(Index));
             }

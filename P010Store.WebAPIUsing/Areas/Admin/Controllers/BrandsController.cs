@@ -100,6 +100,7 @@ namespace P010Store.WebAPIUsing.Areas.Admin.Controllers
         {
             try
             {
+                FileHelper.FileRemover(collection.Logo);
                 var sonuc = await _httpClient.DeleteAsync(_apiAdres + "/" + id);
                 if(sonuc.IsSuccessStatusCode) return RedirectToAction(nameof(Index));
             }
