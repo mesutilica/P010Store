@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Carousel>
+@{
+   int sayi = 0;
+}
+<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        @foreach (var item in Model)
+        {
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="@sayi" aria-current="true" aria-label="@item.Title"></button>
+            sayi++;
+        }
+    </div>
+
+    <div class="carousel-inner">
+        @foreach (var item in Model)
+        {
+            <div class="carousel-item">
+                <img src="/Img/@item.Image" class="d-block w-100" alt="@item.Image">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>@item.Title</h5>
+                    <p>@item.Description</p>
+                </div>
+            </div>
+        }
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+

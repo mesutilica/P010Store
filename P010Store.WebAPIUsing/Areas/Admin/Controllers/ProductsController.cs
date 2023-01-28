@@ -105,16 +105,19 @@ namespace P010Store.WebAPIUsing.Areas.Admin.Controllers
         // POST: ProductsController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> DeleteAsync(int id, Product collection)
         {
             try
             {
+                FileHelper.FileRemover(collection.Image, "/wwwroot/Img/Products/");
+                await _httpClient.DeleteAsync(_apiAdres + "Products/" + id);
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                ModelState.AddModelError("", "Hata Oluştu!");
             }
+            return View(collection);
         }
     }
 }
