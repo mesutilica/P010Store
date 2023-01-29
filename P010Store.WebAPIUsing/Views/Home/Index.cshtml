@@ -39,7 +39,7 @@
     @foreach (var item in Model.Brands)
     {
         <div class="col">
-            <a asp-controller="Brands" asp-action="Index" asp-route-id="@item.Id">
+            <a href="/@item.Name.ToLower()/Brands/Index/@item.Id">
                 <img src="/Img/@item.Logo" alt="@item.Name" title="@item.Name" height="60" />
             </a>
         </div>

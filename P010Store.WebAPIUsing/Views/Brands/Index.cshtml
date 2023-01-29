@@ -1,0 +1,17 @@
+﻿@model BrandPageViewModel
+
+@{
+    ViewData["Title"] = Model.Brand.Name;
+}
+
+<!-- Header-->
+<header class="bg-dark py-3 mt-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">@Model.Brand.Name</h1>
+            <p class="lead fw-normal text-white-50 mb-0">@Model.Brand.Description</p>
+        </div>
+    </div>
+</header>
+
+<partial name="_Products" model="Model.Products" />

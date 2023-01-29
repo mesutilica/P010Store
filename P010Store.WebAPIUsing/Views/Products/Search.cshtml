@@ -1,0 +1,18 @@
+﻿@model IEnumerable<Product>
+
+@{
+    ViewData["Title"] = "Tüm Ürünlerimiz";
+}
+
+<!-- Header-->
+<header class="bg-dark py-3 mt-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">Ürünlerimiz</h1>
+            <p class="lead fw-normal text-white-50 mb-0">Tüm Ürünlerimiz</p>
+        </div>
+    </div>
+</header>
+
+<partial name="_Products" model="Model" />
+

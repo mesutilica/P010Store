@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using P010Store.Entities;
 using P010Store.Service.Abstract;
 using P010Store.WebUI.Utils;
@@ -17,9 +18,9 @@ namespace P010Store.WebUI.Areas.Admin.Controllers
         }
 
         // GET: CategoriesController
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            var model = _service.GetAll();
+            var model = await _service.GetAllAsync();
             return View(model);
         }
 
@@ -30,8 +31,9 @@ namespace P010Store.WebUI.Areas.Admin.Controllers
         }
 
         // GET: CategoriesController/Create
-        public ActionResult Create()
+        public async Task<ActionResult> CreateAsync()
         {
+            ViewBag.ParentId = new SelectList(await _service.GetAllAsync(), "Id", "Name");
             return View();
         }
 
@@ -54,7 +56,7 @@ namespace P010Store.WebUI.Areas.Admin.Controllers
                     ModelState.AddModelError("", "Hata Oluştu!");
                 }
             }
-
+            ViewBag.ParentId = new SelectList(await _service.GetAllAsync(), "Id", "Name");
             return View(category);
         }
         
@@ -76,13 +78,14 @@ namespace P010Store.WebUI.Areas.Admin.Controllers
                     ModelState.AddModelError("", "Hata Oluştu!");
                 }
             }
-
+            ViewBag.ParentId = new SelectList(await _service.GetAllAsync(), "Id", "Name");
             return View(category);
         }
 
         // GET: CategoriesController/Edit/5
         public async Task<ActionResult> EditAsync(int id)
         {
+            ViewBag.ParentId = new SelectList(await _service.GetAllAsync(), "Id", "Name");
             var model = await _service.FindAsync(id);
             return View(model);
         }
@@ -106,7 +109,7 @@ namespace P010Store.WebUI.Areas.Admin.Controllers
                     ModelState.AddModelError("", "Hata Oluştu!");
                 }
             }
-
+            ViewBag.ParentId = new SelectList(await _service.GetAllAsync(), "Id", "Name");
             return View(category);
         }
 

@@ -16,7 +16,7 @@ namespace P010Store.WebUI.ViewComponents
         public async Task<IViewComponentResult> InvokeAsync()
         {
             // var model = await _service.GetAllAsync();
-            return View(await _service.GetAllAsync());
+            return View(await _service.GetAllAsync(c => c.IsActive && c.IsTopMenu));
         }
 
     }

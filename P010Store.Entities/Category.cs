@@ -15,6 +15,12 @@ namespace P010Store.Entities
         public DateTime? CreateDate { get; set; } = DateTime.Now; // eğer bu alan boş geçilirse eklenme zamanını sistemden otomatik al
         [Display(Name = "Durum")]
         public bool IsActive { get; set; }
+        [Display(Name = "Üst Menüde Göster")]
+        public bool IsTopMenu { get; set; }
+        [Display(Name = "Üst Kategori")]
+        public int ParentId { get; set; }
+        [Display(Name = "Kategori Sıra No")]
+        public int OrderNo { get; set; }
         public virtual ICollection<Product>? Products { get; set; }
     }
 }

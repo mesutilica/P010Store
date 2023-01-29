@@ -16,6 +16,14 @@
             <input type="hidden" asp-for="Image" />
             <input type="hidden" asp-for="CreateDate" />
             <div class="form-group">
+                <label asp-for="ParentId" class="control-label"></label>
+                <div class="d-flex">
+                    <select asp-for="ParentId" class="form-select" asp-items="ViewBag.ParentId">
+                        <option value="0">Ana Kategori</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
@@ -36,7 +44,17 @@
                     <input class="form-check-input" asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
                 </label>
             </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsTopMenu" /> @Html.DisplayNameFor(model => model.IsTopMenu)
+                </label>
+            </div>
             <div class="form-group">
+                <label asp-for="OrderNo" class="control-label"></label>
+                <input asp-for="OrderNo" class="form-control" />
+                <span asp-validation-for="OrderNo" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-3">
                 <input type="submit" value="Kaydet" class="btn btn-primary" />
             </div>
         </form>
