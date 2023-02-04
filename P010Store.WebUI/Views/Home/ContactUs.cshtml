@@ -10,7 +10,7 @@
     <div class="col-md-4">
         <h4>Bize Mesaj Gönderin</h4>
         <hr />
-        <form asp-action="ContactUs">
+        <form asp-action="ContactUs" id="iletisim_formu">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
@@ -34,12 +34,13 @@
             </div>
             <div class="form-group">
                 <label asp-for="Message" class="control-label"></label>
-                
+
                 <textarea asp-for="Message" class="form-control"></textarea>
                 <span asp-validation-for="Message" class="text-danger"></span>
             </div>
             <div class="form-group my-3">
-                <input type="submit" value="Gönder" class="btn btn-primary" />
+                @*<input type="submit" value="Gönder" class="btn btn-primary" />*@
+                <button type="button" class="btn btn-primary" onclick="iletisim_formu()">Gönder</button>
             </div>
         </form>
         @Html.Raw(TempData["Mesaj"])
@@ -63,3 +64,41 @@
         </p>
     </div>
 </div>
+
+<div id="sonuc" class="alert alert-info" style="display:none"></div>
+
+@section Scripts{
+    <script>
+        function iletisim_formu() {
+            var ad = $("#Name").val();
+            var soyad = $("#Surname").val();
+            var email = $("#Email").val();
+            var telefon = $("#Phone").val();
+            var mesaj = $("#Message").val();
+
+            var message = {
+                "Name": ad,
+                "Surname": soyad,
+                "Email": email,
+                "Phone": telefon,
+                "Message": mesaj
+            };
+
+            $.ajax({
+                method: "POST",
+                url: "/iletisim",
+                type: "json",
+                data: message,
+                success: function(data){
+                    console.log(data)
+                    document.getElementById("iletisim_formu").reset();
+                    $("#sonuc").show().html("Mesajınız Gönderilmiştir.. Teşekkürler..");
+                },
+                error: function(err){
+                    $("#sonuc").show().html("Mesajınız Gönderilemedi!");
+                }
+            });
+
+        }
+    </script>
+}
