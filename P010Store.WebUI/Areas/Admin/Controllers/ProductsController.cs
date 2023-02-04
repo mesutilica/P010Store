@@ -79,13 +79,22 @@ namespace P010Store.WebUI.Areas.Admin.Controllers
         // POST: ProductsController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> EditAsync(int id, Product product, IFormFile? Image)
+        public async Task<ActionResult> EditAsync(int id, Product product, IFormFile? Image, bool? resmisil)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    if (Image is not null) product.Image = await FileHelper.FileLoaderAsync(Image, filePath: "/wwwroot/Img/Products/");
+                    if(resmisil == true)
+                    {
+                        FileHelper.FileRemover(product.Image, filePath: "/wwwroot/Img/Products/");
+                        product.Image = string.Empty;
+                    }
+                    if (Image is not null)
+                    {
+                        FileHelper.FileRemover(product.Image, filePath: "/wwwroot/Img/Products/");
+                        product.Image = await FileHelper.FileLoaderAsync(Image, filePath: "/wwwroot/Img/Products/");
+                    }
                     _service.Update(product);
                     await _service.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
@@ -114,7 +123,7 @@ namespace P010Store.WebUI.Areas.Admin.Controllers
         {
             try
             {
-                FileHelper.FileRemover(product.Image);
+                FileHelper.FileRemover(product.Image, filePath: "/wwwroot/Img/Products/");
                 _service.Delete(product);
                 _service.SaveChanges();
                 return RedirectToAction(nameof(Index));

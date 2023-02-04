@@ -1,8 +1,19 @@
 ﻿@model IEnumerable<Category>
 
 @{
-    foreach (var item in Model)
+    foreach (var anaKategori in Model.Where(c => c.IsActive && c.ParentId == 0 && c.IsTopMenu).OrderBy(c => c.OrderNo))
     {
-        <li class="nav-item"><a class="nav-link active" href="/@item.Name.ToLower()/Categories/Index/@item.Id">@item.Name</a></li>
+        <div class="dropdown">
+            <a class="btn dropdown-toggle" href="/@anaKategori.Name.ToLower()/Categories/Index/@anaKategori.Id" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                @anaKategori.Name
+            </a>
+
+            <ul class="dropdown-menu">
+                @foreach (var altKategori in Model.Where(c => c.IsActive && c.ParentId == anaKategori.Id && c.IsTopMenu).OrderBy(c => c.OrderNo))
+                {
+                    <li><a class="dropdown-item" href="/@altKategori.Name.ToLower()/Categories/Index/@altKategori.Id">@altKategori.Name</a></li>
+                }
+            </ul>
+        </div>
     }
 }

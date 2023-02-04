@@ -29,7 +29,17 @@
                 <label asp-for="Image" class="control-label"></label>
                 <input asp-for="Image" class="form-control" type="file" />
                 <span asp-validation-for="Image" class="text-danger"></span>
-                <img src="/Img/Products/@Model.Image" alt="" height="50" />
+
+                @if (!string.IsNullOrWhiteSpace(Model.Image))
+                {
+                    <label class="my-3">
+                        <a href="/Img/Products/@Model.Image" data-toggle="lightbox">
+                            <img src="/Img/Products/@Model.Image" alt="@Model.Image" title="@Model.Image" height="50" />
+                        </a>
+                        @Html.CheckBox("resmiSil") Resmi Sil
+                    </label>
+                }
+                
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
@@ -61,7 +71,7 @@
                 <select asp-for="BrandId" class="form-select" asp-items="ViewBag.BrandId"></select>
                 <span asp-validation-for="BrandId" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group my-3">
                 <input type="submit" value="Kaydet" class="btn btn-primary" />
             </div>
         </form>
@@ -72,3 +82,11 @@
     <a asp-action="Index">Listeye Dön</a>
 </div>
 
+@section Scripts{
+    <script>
+        $(document).on('click', '[data-toggle="lightbox"]', function (event) {
+            event.preventDefault();
+            $(this).ekkoLightbox();
+        });
+    </script>
+}

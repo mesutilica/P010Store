@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Product>
 
 <!-- Section-->
-<section class="py-5">
+<section class="py-5" id="Products">
     <div class="container px-4 px-lg-5 mt-5">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
             @foreach (var item in Model)
@@ -16,7 +16,7 @@
                         <div class="card-body p-4">
                             <div class="text-center">
                                 <!-- Product name-->
-                                <h5 class="fw-bolder">@item.Name</h5>
+                                <h5 class="fw-bolder text-truncate">@item.Name</h5>
                                 <!-- Product price-->
                             @item.Price ₺
                             </div>

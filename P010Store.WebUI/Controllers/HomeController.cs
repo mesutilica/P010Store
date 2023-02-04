@@ -2,6 +2,7 @@
 using P010Store.Entities;
 using P010Store.Service.Abstract;
 using P010Store.WebUI.Models;
+using P010Store.WebUI.Utils;
 using System.Diagnostics;
 
 namespace P010Store.WebUI.Controllers
@@ -53,6 +54,7 @@ namespace P010Store.WebUI.Controllers
                     await _serviceContact.AddAsync(contact);
                     await _serviceContact.SaveChangesAsync();
                     TempData["Mesaj"] = "<div class='alert alert-success'>Mesajınız Gönderildi. Teşekkürler..</div>";
+                    // await MailHelper.SendMailAsync(contact); // ekrandan gönderilen mesajı mail ile gönderme
                     return RedirectToAction("ContactUs");
                 }
                 catch (Exception)
